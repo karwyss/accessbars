@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Bars Wadowice | Terapia energetyczna | Poczuj więcej</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Dodatkowe style tylko dla podstrony Access */
+        .about-section {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Profil terapeutki */
+        .therapist-profile {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+            background: linear-gradient(135deg, var(--light) 0%, white 100%);
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(38, 82, 46, 0.1);
+        }
+
+        .therapist-image {
+            flex: 0 0 300px;
+        }
+
+        .therapist-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 30px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+            border: 4px solid var(--secondary);
+        }
+
+        .therapist-info {
+            flex: 1;
+        }
+
+        .therapist-info h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .therapist-info h3 {
+            font-size: 20px;
+            color: var(--text);
+            font-weight: 400;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .therapist-info p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .therapist-signature {
+            font-style: italic;
+            color: var(--primary);
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+        /* Opis Access Bars */
+        .access-description {
+            background: linear-gradient(135deg, var(--primary) 0%, #3a6b42 100%);
+            color: white;
+            padding: 60px;
+            border-radius: 40px;
+            margin-bottom: 80px;
+            box-shadow: 0 30px 50px rgba(38, 82, 46, 0.3);
+        }
+
+        .access-description h2 {
+            font-size: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .access-description h2 span {
+            color: var(--secondary);
+        }
+
+        .access-description p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            opacity: 0.95;
+        }
+
+        .access-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-item i {
+            font-size: 40px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .feature-item h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* ========== GALERIA WYRÓŻNIONA ========== */
+        /* ========== GALERIA WYRÓŻNIONA - POPRAWIONA ========== */
+.gallery-section {
+    margin-bottom: 80px;
+}
+
+.gallery-section h2 {
+    font-size: 36px;
+    color: var(--dark);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.gallery-section h2 span {
+    color: var(--primary);
+}
+
+.gallery-subtitle {
+    text-align: center;
+    color: var(--text);
+    font-size: 18px;
+    margin-bottom: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Galeria z wyróżnionym zdjęciem - stałe proporcje */
+.gallery-featured {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+    height: 600px; /* STAŁA WYSOKOŚĆ CAŁEJ GALERII */
+}
+
+/* Duże zdjęcie */
+.featured-large {
+    height: 600px; /* Taka sama wysokość jak cała galeria */
+    width: 100%;
+}
+
+/* Siatka małych zdjęć */
+.gallery-small {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: 600px; /* Taka sama wysokość */
+}
+
+/* Wszystkie elementy galerii */
+.gallery-item {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--primary), var(--secondary)); /* Tło w miejscu brakujących zdjęć */
+
+}
+
+/* Małe elementy - każdy zajmuje 50% wysokości siatki */
+.gallery-small .gallery-item {
+    height: calc(100% - 10px); /* Połowa wysokości minus połowa gapu (20px/2 = 10px) */
+}
+
+/* Zdjęcia - wypełniają cały kontener */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Wypełnia cały obszar, przycina jeśli trzeba */
+    transition: transform 0.6s ease;
+    display: block;
+}
+
+/* Efekt hover */
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(38, 82, 46, 0.3);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Nakładka z opisem */
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(38, 82, 46, 0.9), transparent);
+    color: white;
+    padding: 30px 20px 20px;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-overlay h4 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.gallery-overlay p {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Lightbox (powiększenie zdjęcia po kliknięciu) */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: white;
+    font-size: 50px;
+    font-weight: 300;
+    cursor: pointer;
+    z-index: 1001;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: all 0.3s;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .gallery-featured {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 15px;
+    }
+    
+    .featured-large {
+        height: 400px;
+    }
+    
+    .gallery-small {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 15px;
+    }
+    
+    .gallery-small .gallery-item {
+        height: 250px;
+    }
+    
+    .lightbox-close {
+        top: 20px;
+        right: 20px;
+        font-size: 40px;
+    }
+}
+
+        .lightbox-close:hover {
+            transform: scale(1.2);
+        }
+
+        /* Responsywność galerii */
+        @media (max-width: 768px) {
+            .gallery-featured {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-small {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-large img {
+                min-height: 300px;
+            }
+        }
+
+        /* Karty usług */
+        .services-detail {
+            margin-bottom: 60px;
+        }
+
+        .services-detail h2 {
+            font-size: 36px;
+            color: var(--dark);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .services-detail h2 span {
+            color: var(--primary);
+        }
+
+        .services-grid-detail {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-detail-card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(38, 82, 46, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-detail-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(38, 82, 46, 0.2);
+        }
+
+        .service-detail-card h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .service-detail-card .price-badge {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .service-detail-card p {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .service-detail-card .duration {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 60px;
+            background-color: var(--light);
+            border-radius: 40px;
+            margin: 40px 0;
+        }
+
+        .cta-section h3 {
+            font-size: 32px;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: var(--text);
+            margin-bottom: 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .therapist-profile {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+            }
+
+            .therapist-image {
+                flex: 0 0 auto;
+                width: 250px;
+            }
+
+            .access-features {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .access-description {
+                padding: 40px 20px;
+            }
+
+            .cta-section {
+                padding: 40px 20px;
+            }
+        }
+
+    
+    </style>
+</head>
+<body>
+    
+    <div class="top-bar">
+        <p>Zadzwoń i umów się: <strong><a href="tel:+48601064332">601 064 332</a></strong> | <a href="https://maps.app.goo.gl/jPF9UhY2uBkEjwQ38">Wadowice, ul. Lwowska 16</a></p>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="./pictures/footsteps.png" alt="Po Prostu Logo">
+                </div>
+                <a href="index.html" style="color: inherit;">
+                    <div class="logo-text">
+                        <h1>Poczuj więcej</h1>
+                        <p>Access Bars Therapy</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="nav-links">
+                <a href="access.html" style="color: var(--primary); font-weight: 600;">O Access Bars</a>
+                <a href="index.html#uslugi">Oferta</a>
+                <a href="index.html#godziny">Godziny</a>
+                <a href="index.html#zapisy">Zapisy Online</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="padding: 40px 0;">
+        <div class="hero-pattern"></div>
+        <div class="hero-container" style="display: flex; justify-content: center;">                    
+            <h2 id="about-h2"><span>Access Bars Therapy</span></h2>
+        </div>
+    </header>
+
+    <!-- Profil terapeutki -->
+    <section class="about-section">
+        <div class="about-container">
+            <div class="therapist-profile">
+                <div class="therapist-image">
+                    <!-- Tutaj wstaw zdjęcie terapeutki -->
+                    <img src="./pictures/marta.png" alt="Marta Mądry-Wolak - certyfikowana praktyczka Access Bars w Wadowicach" onerror="this.src='https://via.placeholder.com/300x300?text=Zdjęcie+terapeutki'">
+                </div>
+                <div class="therapist-info">
+                    <h2>Marta Mądry-Wolak</h2>
+                    <h3>Certyfikowana praktyczka Access Consciousness®</h3>
+                    <p>Z pasją i zaangażowaniem pomagam ludziom odnaleźć wewnętrzny spokój i lekkość. Moja przygoda z Access Bars zaczęła się kilka lat temu, kiedy sama doświadczyłam głębokiej transformacji i uwolnienia od codziennego stresu.</p>
+                    <p>Dziś, jako certyfikowana praktyczka, prowadzę przez proces odkrywania nowych możliwości i zmiany ograniczających przekonań. Każda sesja to dla mnie wyjątkowe spotkanie, podczas którego tworzę bezpieczną przestrzeń do relaksu i regeneracji.</p>
+                    <p>Pracuję z kobietami, mężczyznami i dziećmi, pomagając im w redukcji stresu, poprawie jakości snu i odzyskaniu wewnętrznej równowagi.</p>
+                    <div class="therapist-signature">
+                        "Bo Twój komfort i spokój są najważniejsze"
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== GALERIA WYRÓŻNIONA ========== -->
+<div class="gallery-section">
+    <h2>Zobacz <span>nasze wnętrze</span></h2>
+    <p class="gallery-subtitle"></p>
+    
+    <!-- Galeria z wyróżnionym zdjęciem -->
+    <div class="gallery-featured">
+        <!-- Duże, wyróżnione zdjęcie -->
+        <div class="gallery-item featured-large" onclick="openLightbox('./pictures/patient.png')">
+            <img src="./pictures/patient.png" alt="Główny gabinet Access Bars" onerror="this.src='https://via.placeholder.com/800x600?text=Gabinet+główny'">
+            <div class="gallery-overlay">
+                <h4>Główny gabinet</h4>
+                <p>Serce naszego miejsca - tutaj odbywają się sesje</p>
+            </div>
+        </div>
+        
+        <!-- Siatka małych zdjęć -->
+        <div class="gallery-small">
+            <div class="gallery-item" onclick="openLightbox('./pictures/gabinet.png')">
+                <img src="./pictures/gabinet.png" alt="Strefa relaksu z herbatą" onerror="this.src='https://via.placeholder.com/400x300?text=Strefa+relaksu'">
+                <div class="gallery-overlay">
+                    <h4>Strefa relaksu</h4>
+                    <p>Odpocznij przed sesją</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('./pictures/oils.png')">
+                <img src="./pictures/oils.png" alt="Stół do masażu Access Bars" onerror="this.src='https://via.placeholder.com/400x300?text=Stół+do+masażu'">
+                <div class="gallery-overlay">
+                    <h4>Miejsce sesji</h4>
+                    <p>Profesjonalny stół do masażu</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('./pictures/oils.png')">
+                <img src="./pictures/oils.png" alt="Świece i olejki eteryczne" onerror="this.src='https://via.placeholder.com/400x300?text=Aromaterapia'">
+                <div class="gallery-overlay">
+                    <h4>Aromaterapia</h4>
+                    <p>Naturalne olejki eteryczne</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openLightbox('./pictures/gabinet.png')">
+                <img src="./pictures/gabinet.png" alt="Ogród przy gabinecie" onerror="this.src='https://via.placeholder.com/400x300?text=Ogród'">
+                <div class="gallery-overlay">
+                    <h4>Ogród</h4>
+                    <p>Zielona przestrzeń wokół</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Podpis pod galerią -->
+    <p style="text-align: center; margin-top: 30px; color: var(--text); font-style: italic;">
+        <i class="fas fa-camera"></i> Kliknij na zdjęcie, aby powiększyć
+    </p>
+</div>
+
+<!-- Lightbox (powiększone zdjęcie) -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+            <!-- Opis Access Bars -->
+            <div class="access-description">
+                <h2>Czym jest <span>Access Bars®</span>?</h2>
+                <p>Access Bars to delikatna, ale potężna technika pracy z ciałem i umysłem, która polega na delikatnym dotykaniu 32 punktów na głowie. Te punkty zawierają wszystkie myśli, idee, przekonania, emocje i postanowienia, które nagromadziły się przez całe życie.</p>
+                <p>Podczas sesji, poprzez delikatny dotyk, następuje rozładowanie napięć elektromagnetycznych w mózgu, co pozwala na uwolnienie się od ograniczających myśli i wzorców. To jak naciśnięcie przycisku "reset" w Twojej głowie!</p>
+                
+                <div class="access-features">
+                    <div class="feature-item">
+                        <i class="fas fa-brain"></i>
+                        <h4>Uwolnienie umysłu</h4>
+                        <p>Wyciszenie natłoku myśli i redukcja wewnętrznego dialogu</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-heart"></i>
+                        <h4>Głęboki relaks</h4>
+                        <p>Stan głębokiego odprężenia porównywalny z wielogodzinną medytacją</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-star"></i>
+                        <h4>Nowe możliwości</h4>
+                        <p>Otwarcie na nowe perspektywy i kreatywne rozwiązania</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Szczegółowy opis usług -->
+            <div class="services-detail">
+                <h2>Poznaj <span>nasze zabiegi</span></h2>
+                <div class="services-grid-detail">
+                    
+                    <!-- Access Bars -->
+                    <div class="service-detail-card">
+                        <h3>Masaż Access Bars</h3>
+                        <!-- <span class="price-badge">100 zł / 60 min</span> -->
+                        <p>Podstawowa i najpopularniejsza technika Access. Delikatny dotyk 32 punktów na głowie, które zawierają wszystkie aspekty Twojego życia: pieniądze, kontrolę, kreatywność, seksualność, starzenie się, nadzieję i marzenia. To jak formatowanie dysku twardego w komputerze - usuwa to, co nie jest już potrzebne i robi miejsce na nowe.</p>
+                        <div class="duration"><i class="far fa-clock"></i> Czas trwania: 60 minut</div>
+                    </div>
+
+                    <!-- Access Facelift -->
+                    <div class="service-detail-card">
+                        <h3>Access Facelift</h3>
+                        <!-- <span class="price-badge">100 zł / 45 min</span> -->
+                        <p>Energoterapia odmładzająca twarz, szyję i dekolt. To nieinwazyjna alternatywa dla chirurgii plastycznej. Poprzez delikatne, energetyczne dotknięcia, rozluźnia napięcia w tkankach, przywraca blask skórze i redukuje oznaki starzenia. Efekt? Promienna, młodzieńcza twarz bez skalpela!</p>
+                        <div class="duration"><i class="far fa-clock"></i> Czas trwania: 45 minut</div>
+                    </div>
+
+                    <!-- Access Body - MTVSS -->
+                    <div class="service-detail-card">
+                        <h3>Access Body - MTVSS</h3>
+                        <!-- <span class="price-badge">120 zł / 60 min</span> -->
+                        <p>Molekularna Terapia Wibracyjna Sfery Sercowej - potężna technika pracy z całym ciałem. Pomaga uwolnić się od bólu, stanów zapalnych, a nawet wspiera procesy regeneracji po urazach. Przywraca witalność i energię życiową, rozpuszczając blokady w ciele.</p>
+                        <div class="duration"><i class="far fa-clock"></i> Czas trwania: 60 minut</div>
+                    </div>
+
+                    <!-- Zerowa Suma Traum -->
+                    <div class="service-detail-card">
+                        <h3>Zerowa Suma Traum</h3>
+                        <!-- <span class="price-badge">90 zł / 45 min</span> -->
+                        <p>Specjalistyczna sesja uwalniania traum i trudnych doświadczeń z przeszłości. Pomaga rozpuścić ładunek emocjonalny związany z traumatycznymi wydarzeniami, bez konieczności ich ponownego przeżywania. Uwalnia od posttraumatycznego stresu i napięć.</p>
+                        <div class="duration"><i class="far fa-clock"></i> Czas trwania: 45 minut</div>
+                    </div>
+
+                    <!-- Energetyczna Korekta Widzenia -->
+                    <div class="service-detail-card">
+                        <h3>Energetyczna Korekta Widzenia</h3>
+                        <!-- <span class="price-badge">150 zł / 90 min</span> -->
+                        <p>Unikalna technika pracy z narządem wzroku na poziomie energetycznym. Pomaga poprawić ostrość widzenia, redukuje napięcie w oczach i wspiera naturalne procesy regeneracji. Pracuje z przekonaniami i emocjami, które wpływają na jakość widzenia.</p>
+                        <div class="duration"><i class="far fa-clock"></i> Czas trwania: 90 minut</div>
+                    </div>
+
+                    <!-- Odnowa Priopercepcji -->
+                    <div class="service-detail-card">
+                        <h3>Odnowa Priopercepcji</h3>
+                        <!-- <span class="price-badge">200 zł / 90 min</span> -->
+                        <p>Sesja przywracająca świadomość własnego ciała i przestrzeni. Pomaga w integracji sensorycznej, poprawia koordynację ruchową i równowagę. Szczególnie polecana osobom po urazach, z przewlekłym stresem i zaburzeniami propriocepcji.</p>
+                        <div class="duration"><i class="far fa-clock"></i> Czas trwania: 90 minut</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wezwanie do działania -->
+            <div class="cta-section">
+                <h3>Gotowy na zmianę?</h3>
+                <p>Umów się na sesję i doświadcz głębokiego relaksu oraz uwolnienia od codziennego stresu.</p>
+                <div class="cta-buttons">
+                    <a href="index.html#zapisy" class="btn-outline">Zarezerwuj termin</a>
+                    <a href="tel:+48601064332" class="btn-outline">Zadzwoń i zapytaj</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stopka -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">
+                    <img src="./pictures/footsteps.png" alt="Po Prostu Logo">
+                </div>
+                <div class="footer-logo-text">
+                    <h2>Poczuj więcej</h2>
+                    <p>Access Bars Therapy</p>
+                </div>
+            </div>
+            
+            <p class="footer-description">
+                Profesjonalne sesje Access Bars i terapie energetyczne z indywidualnym podejściem do każdego Klienta.
+                Twoja droga do wewnętrznego spokoju i lekkości.
+            </p>
+            
+            <div class="footer-border">
+                <p class="footer-copyright">
+                    © 2024 Poczuj więcej - Access Bars Therapy. Wszystkie prawa zastrzeżone.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lightbox funkcje
+        function openLightbox(src) {
+            document.getElementById('lightbox').classList.add('active');
+            document.getElementById('lightbox-img').src = src;
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        // Zamknij lightbox po kliknięciu w ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>
