@@ -477,27 +477,37 @@
     </div>
 
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <img src="./pictures/footsteps.png" alt="Po Prostu Logo">
+    <div class="nav-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="./pictures/footsteps.png" alt="Po Prostu Logo">
+            </div>
+            <a href="index.html" style="color: inherit;">
+                <div class="logo-text">
+                    <h1>Poczuj więcej</h1>
+                    <p>Access Bars Therapy</p>
                 </div>
-                <a href="index.html" style="color: inherit;">
-                    <div class="logo-text">
-                        <h1>Poczuj więcej</h1>
-                        <p>Access Bars Therapy</p>
-                    </div>
-                </a>
-            </div>
-            
-            <div class="nav-links">
-                <a href="access.html" style="color: var(--primary); font-weight: 600;">O Access Bars</a>
-                <a href="index.html#uslugi">Oferta</a>
-                <a href="index.html#godziny">Godziny</a>
-                <a href="index.html#zapisy">Zapisy Online</a>
-            </div>
+            </a>
         </div>
-    </nav>
+        
+        <!-- Hamburger button -->
+        <div class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="access.html" style="color: var(--primary); font-weight: 600;" onclick="closeMobileMenu()">O Access Bars</a>
+            <a href="index.html#uslugi" onclick="closeMobileMenu()">Oferta</a>
+            <a href="index.html#godziny" onclick="closeMobileMenu()">Godziny</a>
+            <a href="index.html#zapisy" onclick="closeMobileMenu()">Zapisy Online</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Overlay -->
+<div class="mobile-overlay" id="mobileOverlay" style="display: none;" onclick="closeMobileMenu()"></div>
 
     <header class="hero" style="padding: 40px 0;">
         <div class="hero-pattern"></div>
@@ -708,8 +718,12 @@
     <script>
         // Lightbox funkcje
         function openLightbox(src) {
+            if (window.isMobileMenuOpen) {
+                return;
+            }
             document.getElementById('lightbox').classList.add('active');
             document.getElementById('lightbox-img').src = src;
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
@@ -722,6 +736,90 @@
                 closeLightbox();
             }
         });
+
+        let isMobileMenuOpen = false;
+    
+    // Funkcja do zamykania menu
+    function closeMobileMenu() {
+        isMobileMenuOpen = false;
+        renderMobileMenu();
+    }
+    
+    // Funkcja do przełączania menu
+    function toggleMobileMenu() {
+        isMobileMenuOpen = !isMobileMenuOpen;
+        renderMobileMenu();
+    }
+    
+    // Funkcja do aktualizacji wyglądu menu
+    function renderMobileMenu() {
+        const hamburger = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('mobileOverlay');
+        
+        if (hamburger) {
+            if (isMobileMenuOpen) {
+                hamburger.classList.add('mobile-open');
+            } else {
+                hamburger.classList.remove('mobile-open');
+            }
+        }
+        
+        if (navLinks) {
+            if (isMobileMenuOpen) {
+                navLinks.classList.add('mobile-open');
+            } else {
+                navLinks.classList.remove('mobile-open');
+            }
+        }
+        
+        if (overlay) {
+            if (isMobileMenuOpen) {
+                overlay.style.display = 'block';
+            } else {
+                overlay.style.display = 'none';
+            }
+        }
+    }
+
+    document.addEventListener('click', function(event) {
+    if (!window.isMobileMenuOpen) return;
+    
+    const isClickOnHamburger = event.target.closest('#hamburgerBtn');
+    const isClickOnMenu = event.target.closest('#navLinks');
+    
+    if (!isClickOnHamburger && !isClickOnMenu) {
+        window.isMobileMenuOpen = false;
+        
+        const hamburger = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('mobileOverlay');
+        
+        if (hamburger) hamburger.classList.remove('mobile-open');
+        if (navLinks) navLinks.classList.remove('mobile-open');
+        if (overlay) overlay.style.display = 'none';
+    }
+});
+
+// Obsługa touch
+document.addEventListener('touchstart', function(event) {
+    if (!window.isMobileMenuOpen) return;
+    
+    const isClickOnHamburger = event.target.closest('#hamburgerBtn');
+    const isClickOnMenu = event.target.closest('#navLinks');
+    
+    if (!isClickOnHamburger && !isClickOnMenu) {
+        window.isMobileMenuOpen = false;
+        
+        const hamburger = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        const overlay = document.getElementById('mobileOverlay');
+        
+        if (hamburger) hamburger.classList.remove('mobile-open');
+        if (navLinks) navLinks.classList.remove('mobile-open');
+        if (overlay) overlay.style.display = 'none';
+    }
+}, { passive: false });
     </script>
 
     <!-- Pływająca wyspa social media -->
