@@ -79,8 +79,8 @@
 
         /* Opis Access Bars */
         .access-description {
-            background: linear-gradient(135deg, var(--primary) 0%, #3a6b42 100%);
-            color: white;
+            background: var(--light);
+            color: var(--text);
             padding: 60px;
             border-radius: 40px;
             margin-bottom: 80px;
@@ -88,13 +88,14 @@
         }
 
         .access-description h2 {
+            color: var(--primary);
             font-size: 40px;
             margin-bottom: 30px;
             text-align: center;
         }
 
         .access-description h2 span {
-            color: var(--secondary);
+            color: var(--primary);
         }
 
         .access-description p {
@@ -117,6 +118,7 @@
             background: rgba(255,255,255,0.1);
             border-radius: 20px;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(38, 82, 46, 0.1);
         }
 
         .feature-item i {
@@ -500,6 +502,7 @@
         <div class="nav-links" id="navLinks">
             <a href="access.html" style="color: var(--primary); font-weight: 600;" onclick="closeMobileMenu()">O Access Bars</a>
             <a href="index.html#uslugi" onclick="closeMobileMenu()">Oferta</a>
+            <a href="promotions.html" onclick="closeMobileMenu()">Promocje</a>
             <a href="index.html#godziny" onclick="closeMobileMenu()">Godziny</a>
             <a href="index.html#zapisy" onclick="closeMobileMenu()">Zapisy Online</a>
         </div>

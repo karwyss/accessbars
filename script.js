@@ -151,6 +151,7 @@ function renderNavigation() {
                 <div class="nav-links ${isOpen}" id="navLinks">
                     <a href="access.html">O Access Bars</a>
                     <a href="#uslugi">Oferta</a>
+                    <a href="promotions.html">Promocje</a>
                     <a href="#godziny">Godziny</a>
                     <a href="#zapisy">Zapisy Online</a>
                 </div>
