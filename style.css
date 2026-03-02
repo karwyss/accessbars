@@ -1619,7 +1619,6 @@ a {
     bottom: 0;
     background: rgba(0,0,0,0.5);
     z-index: 998;
-    backdrop-filter: blur(3px);
     animation: fadeIn 0.3s ease;
 }
 

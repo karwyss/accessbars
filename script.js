@@ -123,7 +123,10 @@ function renderTopBar() {
 }
 
 // Renderowanie nawigacji
+// Renderowanie nawigacji
 function renderNavigation() {
+    const isOpen = appState.isMobileMenuOpen ? 'mobile-open' : '';
+    
     return `
         <nav class="navbar">
             <div class="nav-container">
@@ -137,25 +140,24 @@ function renderNavigation() {
                     </div>
                 </div>
                 
-                <!-- Hamburger button - widoczny tylko na mobile -->
-                <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-                    <span class="hamburger-box">
-                        <span class="hamburger-inner"></span>
-                    </span>
-                </button>
+                <!-- Hamburger button -->
+                <div class="hamburger ${isOpen}" id="hamburgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
                 
-                <!-- Menu nawigacyjne - na desktop zawsze widoczne, na mobile po kliknięciu -->
-                <div class="nav-links ${appState.isMobileMenuOpen ? 'mobile-open' : ''}" id="navLinks">
-                    <a href="access.html" onclick="event.preventDefault(); event.stopPropagation(); closeMobileMenu();">O Access Bars</a>
-                    <a href="#uslugi" onclick="event.preventDefault(); event.stopPropagation(); closeMobileMenu();">Oferta</a>
-                    <a href="#godziny" onclick="event.preventDefault(); event.stopPropagation(); closeMobileMenu();">Godziny</a>
-                    <a href="#zapisy" onclick="event.preventDefault(); event.stopPropagation(); closeMobileMenu();">Zapisy Online</a>
+                <!-- Menu nawigacyjne -->
+                <div class="nav-links ${isOpen}" id="navLinks">
+                    <a href="access.html">O Access Bars</a>
+                    <a href="#uslugi">Oferta</a>
+                    <a href="#godziny">Godziny</a>
+                    <a href="#zapisy">Zapisy Online</a>
                 </div>
             </div>
         </nav>
         
-        <!-- Overlay na mobile gdy menu jest otwarte -->
-        ${appState.isMobileMenuOpen ? '<div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>' : ''}
+        ${appState.isMobileMenuOpen ? '<div class="mobile-overlay" id="mobileOverlay"></div>' : ''}
     `;
 }
 
