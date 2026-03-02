@@ -1547,13 +1547,18 @@ a {
 /* ===== HAMBURGER MENU ===== */
 .hamburger {
     display: none;
-    padding: 15px;
-    background: transparent;
-    border: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 45px;
+    height: 45px;
+    background: var(--primary); /* ZMIENIONE - zielone tło */
+    border: 2px solid var(--primary);
+    border-radius: 12px;
     cursor: pointer;
-    outline: none;
-    position: relative;
+    padding: 10px;
     z-index: 10000;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .hamburger-box {
@@ -1617,7 +1622,7 @@ a {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.5);
+    pointer-events: none;
     z-index: 998;
     animation: fadeIn 0.3s ease;
 }
@@ -1691,5 +1696,106 @@ a {
         bottom: 0;
         transform: rotate(90deg);
         opacity: 0;
+    }
+}
+
+.hamburger span {
+    width: 100%;
+    height: 3px;
+    background: white; /* ZMIENIONE - białe kreski */
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Animacja po otwarciu */
+.hamburger.mobile-open {
+    background: white;
+}
+
+.hamburger.mobile-open span {
+    background: var(--primary); /* zielone kreski po otwarciu */
+}
+
+.hamburger.mobile-open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.mobile-open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.mobile-open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* Overlay bez rozmycia */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-container {
+        padding: 15px 20px;
+    }
+    
+    .nav-links {
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important;
+        width: 280px !important;
+        height: 100vh !important;
+        background: white !important;
+        flex-direction: column !important;
+        padding: 100px 30px 30px !important;
+        transition: right 0.3s ease !important;
+        z-index: 9999 !important;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.2) !important;
+        display: flex !important;
+        gap: 20px !important;
+    }
+    
+    .nav-links.mobile-open {
+        right: 0 !important;
+    }
+    
+    .nav-links a {
+        font-size: 18px;
+        padding: 15px;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid var(--light);
+        color: var(--dark) !important;
+    }
+    
+    .nav-links a.btn-primary {
+        background: var(--primary) !important;
+        color: white !important;
+        border: none;
+        margin-top: 20px;
+    }
+}
+
+@media (min-width: 769px) {
+    .nav-links {
+        display: flex !important;
+    }
+    
+    .hamburger {
+        display: none !important;
+    }
+    
+    .mobile-overlay {
+        display: none !important;
     }
 }

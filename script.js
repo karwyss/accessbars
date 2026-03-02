@@ -654,12 +654,6 @@ function renderPopup() {
 // Inicjalizacja event listenerów
 function initEventListeners() {
     // Formularz
-
-    document.querySelectorAll('button, a').forEach(el => {
-    el.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
-});
     const bookingForm = document.getElementById('bookingForm');
     if (bookingForm) {
         bookingForm.addEventListener('submit', handleSubmit);
@@ -739,6 +733,7 @@ function initEventListeners() {
     // Przyciski "Wybierz" w usługach
     document.querySelectorAll('.btn-select').forEach(btn => {
         btn.addEventListener('click', (e) => {
+            e.stopPropagation();
             const service = e.currentTarget.dataset.service;
             appState.form.service = service;
             document.getElementById('zapisy').scrollIntoView({ behavior: 'smooth' });
@@ -750,34 +745,85 @@ function initEventListeners() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
+            e.stopPropagation();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
             }
+            // Zamknij menu jeśli otwarte
+            if (appState.isMobileMenuOpen) {
+                appState.isMobileMenuOpen = false;
+                renderApp();
+            }
         });
     });
 
+    // ===== HAMBURGER MENU =====
     const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const mobileOverlay = document.getElementById('mobileOverlay');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
     if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', (e) => {
-            e.preventDefault();  // ← DODAJ TO
-        e.stopPropagation(); // ← DODAJ TO
-        e.stopImmediatePropagation();
+        const toggleMenu = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
             appState.isMobileMenuOpen = !appState.isMobileMenuOpen;
             renderApp();
-        });
+        };
+        
+        hamburgerBtn.addEventListener('click', toggleMenu);
+        hamburgerBtn.addEventListener('touchstart', toggleMenu, { passive: false });
     }
 
-    if (mobileOverlay) {
-        mobileOverlay.addEventListener('click', () => {
-            e.preventDefault();
-            e.stopPropagation();
+    // Linki w menu
+    navLinks.forEach(link => {
+        const handleLink = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const href = this.getAttribute('href');
+            
+            if (href.startsWith('#')) {
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            } else {
+                window.location.href = href;
+            }
+            
             appState.isMobileMenuOpen = false;
             renderApp();
-        });
-    }
+        };
+        
+        link.addEventListener('click', handleLink);
+        link.addEventListener('touchstart', handleLink, { passive: false });
+    });
+
+    // Zamykanie menu po kliknięciu poza
+    document.addEventListener('click', function(event) {
+        if (!appState.isMobileMenuOpen) return;
+        
+        const isClickOnHamburger = event.target.closest('#hamburgerBtn');
+        const isClickOnMenu = event.target.closest('#navLinks');
+        
+        if (!isClickOnHamburger && !isClickOnMenu) {
+            appState.isMobileMenuOpen = false;
+            renderApp();
+        }
+    });
+
+    document.addEventListener('touchstart', function(event) {
+        if (!appState.isMobileMenuOpen) return;
+        
+        const isClickOnHamburger = event.target.closest('#hamburgerBtn');
+        const isClickOnMenu = event.target.closest('#navLinks');
+        
+        if (!isClickOnHamburger && !isClickOnMenu) {
+            appState.isMobileMenuOpen = false;
+            renderApp();
+        }
+    }, { passive: false });
 }
 
 // Globalny click do zamykania dropdownów
