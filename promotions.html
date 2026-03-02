@@ -368,7 +368,6 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.4);
             z-index: 9998;
             pointer-events: none;
             display: none;
@@ -663,14 +662,7 @@
         </a>
     </div>
 
-    <div class="post-modal" id="postModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <div class="modal-body" id="modalBody">
-                <!-- Tu będzie ładowana treść -->
-            </div>
-        </div>
-    </div>
+    
 
     <script>
         // Lightbox funkcje
@@ -753,25 +745,31 @@
 
         // Filtry kategorii
         document.addEventListener('DOMContentLoaded', function() {
-            const categoryBtns = document.querySelectorAll('.category-btn');
-            const posts = document.querySelectorAll('.post-card');
-            
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const category = this.dataset.category;
-                    
-                    posts.forEach(post => {
-                        if (category === 'all' || post.dataset.category === category) {
-                            post.style.display = 'flex';
-                        } else {
-                            post.style.display = 'none';
-                        }
-                    });
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const posts = document.querySelectorAll('.post-card');
+        
+        console.log('Znaleziono guziki:', categoryBtns.length); // sprawdzenie czy działają
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log('Kliknięto:', this.dataset.category); // sprawdzenie
+                
+                // Usuń klasę 'active' ze wszystkich
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Dodaj klasę 'active' do klikniętego
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                posts.forEach(post => {
+                    if (category === 'all' || post.dataset.category === category) {
+                        post.style.display = 'flex';
+                    } else {
+                        post.style.display = 'none';
+                    }
                 });
             });
+        });
 
             // Newsletter
             const newsletterForm = document.getElementById('newsletterForm');
