@@ -29,7 +29,8 @@ let appState = {
     loading: false,
     popup: null,
     isSelectOpen: false,
-    isTimeOpen: false
+    isTimeOpen: false,
+    isMobileMenuOpen: false
 };
 
 // Płaska lista wszystkich usług
@@ -41,9 +42,52 @@ const allServices = SERVICES.flatMap(s =>
     }))
 );
 
+
+// Globalna funkcja do zamykania menu mobilnego
+function closeMobileMenu() {
+    if (appState.isMobileMenuOpen) {
+        appState.isMobileMenuOpen = false;
+        renderApp();
+    }
+}
+
+// Dodaj też wersję z eventem
+window.closeMobileMenu = function(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    if (appState.isMobileMenuOpen) {
+        appState.isMobileMenuOpen = false;
+        renderApp();
+    }
+};
+
 // Funkcja pomocnicza do znalezienia usługi po nazwie
 function findServiceByName(name) {
     return allServices.find(s => s.name === name);
+}
+
+function renderSocialFloating() {   // do zmienienia sa te profile itd.
+    return `
+        <div class="social-floating">
+            <a href="https://facebook.com/twojprofil" target="_blank" class="social-icon facebook" title="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://instagram.com/twojprofil" target="_blank" class="social-icon instagram" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="mailto:twoj@email.com" class="social-icon email" title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://wa.me/48601064332" target="_blank" class="social-icon whatsapp" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="tel:+48601064332" class="social-icon phone" title="Zadzwoń">
+                <i class="fas fa-phone-alt"></i>
+            </a>
+        </div>
+    `;
 }
 
 // Renderowanie całej aplikacji
@@ -59,6 +103,7 @@ function renderApp() {
             ${renderInfoSection()}
             ${renderFooter()}
             ${renderPopup()}
+            ${renderSocialFloating()}
         </div>
     `;
 
@@ -84,7 +129,7 @@ function renderNavigation() {
             <div class="nav-container">
                 <div class="logo">
                     <div class="logo-icon">
-                        <img src="./pictures/footsteps.png" alt="Po Prostu Logo">
+                        <img src="./pictures/footsteps.png" alt="Poczuj więcej Logo">
                     </div>
                     <div class="logo-text">
                         <h1>Poczuj więcej</h1>
@@ -92,14 +137,25 @@ function renderNavigation() {
                     </div>
                 </div>
                 
-                <div class="nav-links">
-                    <a href="access.html">O Access Bars</a>
-                    <a href="#uslugi">Oferta</a>
-                    <a href="#godziny">Godziny</a>
-                    <a href="#zapisy">Zapisy Online</a>
+                <!-- Hamburger button - widoczny tylko na mobile -->
+                <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </button>
+                
+                <!-- Menu nawigacyjne - na desktop zawsze widoczne, na mobile po kliknięciu -->
+                <div class="nav-links ${appState.isMobileMenuOpen ? 'mobile-open' : ''}" id="navLinks">
+                    <a href="access.html" onclick="event.preventDefault(); event.stopPropagation(); closeMobileMenu();">O Access Bars</a>
+                    <a href="#uslugi" onclick="event.preventDefault(); event.stopPropagation(); closeMobileMenu();">Oferta</a>
+                    <a href="#godziny" onclick="event.preventDefault(); event.stopPropagation(); closeMobileMenu();">Godziny</a>
+                    <a href="#zapisy" onclick="event.preventDefault(); event.stopPropagation(); closeMobileMenu();">Zapisy Online</a>
                 </div>
             </div>
         </nav>
+        
+        <!-- Overlay na mobile gdy menu jest otwarte -->
+        ${appState.isMobileMenuOpen ? '<div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>' : ''}
     `;
 }
 
@@ -596,6 +652,12 @@ function renderPopup() {
 // Inicjalizacja event listenerów
 function initEventListeners() {
     // Formularz
+
+    document.querySelectorAll('button, a').forEach(el => {
+    el.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+});
     const bookingForm = document.getElementById('bookingForm');
     if (bookingForm) {
         bookingForm.addEventListener('submit', handleSubmit);
@@ -692,6 +754,28 @@ function initEventListeners() {
             }
         });
     });
+
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.preventDefault();  // ← DODAJ TO
+        e.stopPropagation(); // ← DODAJ TO
+        e.stopImmediatePropagation();
+            appState.isMobileMenuOpen = !appState.isMobileMenuOpen;
+            renderApp();
+        });
+    }
+
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', () => {
+            e.preventDefault();
+            e.stopPropagation();
+            appState.isMobileMenuOpen = false;
+            renderApp();
+        });
+    }
 }
 
 // Globalny click do zamykania dropdownów
@@ -761,6 +845,8 @@ function showPopup(message) {
         renderApp();
     }, message.includes('Dziękujemy') ? 5000 : 3000);
 }
+
+
 
 // Inicjalizacja aplikacji
 document.addEventListener('DOMContentLoaded', () => {

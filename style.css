@@ -1414,3 +1414,283 @@ a {
 .dropdown-overlay {
     display: none !important;
 }
+
+/* ===== PŁYWAJĄCA WYSPA SOCIAL MEDIA ===== */
+.social-floating {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+}
+
+/* Prawa strona (opcjonalnie - odkomentuj jeśli chcesz z prawej) */
+/*
+.social-floating {
+    left: auto;
+    right: 20px;
+}
+*/
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 22px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid var(--primary);
+}
+
+.social-icon:hover {
+    transform: translateX(5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(38, 82, 46, 0.3);
+}
+
+/* Kolory po najechaniu */
+.social-icon.facebook:hover {
+    background: #1877f2;
+    color: white;
+    border-color: #1877f2;
+}
+
+.social-icon.instagram:hover {
+    background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+    color: white;
+    border-color: transparent;
+}
+
+.social-icon.email:hover {
+    background: #ea4335;
+    color: white;
+    border-color: #ea4335;
+}
+
+.social-icon.whatsapp:hover {
+    background: #25d366;
+    color: white;
+    border-color: #25d366;
+}
+
+.social-icon.phone:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Tooltip (podpowiedź) */
+.social-icon::before {
+    content: attr(title);
+    position: absolute;
+    left: 60px;
+    background: var(--primary);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    pointer-events: none;
+    font-weight: 500;
+}
+
+.social-icon:hover::before {
+    opacity: 1;
+    visibility: visible;
+    left: 70px;
+}
+
+/* Wersja dla mobile */
+@media (max-width: 768px) {
+    .social-floating {
+        left: 10px;
+        gap: 8px;
+    }
+    
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .social-icon::before {
+        display: none; /* Ukryj tooltipy na mobile */
+    }
+}
+
+/* Jeśli chcesz żeby była na górze a nie na środku */
+.social-floating.top {
+    top: 150px;
+    transform: none;
+}
+
+/* Jeśli chcesz żeby była na dole */
+.social-floating.bottom {
+    top: auto;
+    bottom: 30px;
+    transform: none;
+}
+
+/* ===== HAMBURGER MENU ===== */
+.hamburger {
+    display: none;
+    padding: 15px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    z-index: 10000;
+}
+
+.hamburger-box {
+    width: 30px;
+    height: 24px;
+    display: inline-block;
+    position: relative;
+}
+
+.hamburger-inner {
+    display: block;
+    top: 50%;
+    margin-top: -2px;
+}
+
+.hamburger-inner, 
+.hamburger-inner::before, 
+.hamburger-inner::after {
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 4px;
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+    content: "";
+    display: block;
+}
+
+.hamburger-inner::before {
+    top: -10px;
+}
+
+.hamburger-inner::after {
+    bottom: -10px;
+}
+
+/* Animacja gdy menu otwarte */
+#hamburgerBtn.active .hamburger-inner {
+    transform: rotate(45deg);
+}
+
+#hamburgerBtn.active .hamburger-inner::before {
+    top: 0;
+    transform: rotate(90deg);
+}
+
+#hamburgerBtn.active .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(90deg);
+    opacity: 0;
+}
+
+/* Overlay na mobile */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    backdrop-filter: blur(3px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 350px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        padding: 100px 30px 30px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+        display: flex !important;
+        gap: 20px !important;
+    }
+    
+    .nav-links.mobile-open {
+        right: 0;
+    }
+    
+    .nav-links a {
+        font-size: 18px;
+        padding: 12px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-links .btn-primary {
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-container {
+        position: relative;
+    }
+
+    .hamburger:focus,
+.hamburger:active {
+    outline: none;
+    background: transparent;
+}
+    
+    /* Animacja hamburgera */
+    #hamburgerBtn.active .hamburger-inner {
+        transform: rotate(45deg);
+    }
+    
+    #hamburgerBtn.active .hamburger-inner::before {
+        top: 0;
+        transform: rotate(90deg);
+    }
+    
+    #hamburgerBtn.active .hamburger-inner::after {
+        bottom: 0;
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+}

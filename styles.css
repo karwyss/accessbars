@@ -1328,3 +1328,132 @@ a {
                 padding: 40px 20px;
             }
         }
+
+/* ===== PŁYWAJĄCA WYSPA SOCIAL MEDIA ===== */
+.social-floating {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+}
+
+/* Prawa strona (opcjonalnie - odkomentuj jeśli chcesz z prawej) */
+/*
+.social-floating {
+    left: auto;
+    right: 20px;
+}
+*/
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 22px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid var(--primary);
+}
+
+.social-icon:hover {
+    transform: translateX(5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(38, 82, 46, 0.3);
+}
+
+/* Kolory po najechaniu */
+.social-icon.facebook:hover {
+    background: #1877f2;
+    color: white;
+    border-color: #1877f2;
+}
+
+.social-icon.instagram:hover {
+    background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+    color: white;
+    border-color: transparent;
+}
+
+.social-icon.email:hover {
+    background: #ea4335;
+    color: white;
+    border-color: #ea4335;
+}
+
+.social-icon.whatsapp:hover {
+    background: #25d366;
+    color: white;
+    border-color: #25d366;
+}
+
+.social-icon.phone:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Tooltip (podpowiedź) */
+.social-icon::before {
+    content: attr(title);
+    position: absolute;
+    left: 60px;
+    background: var(--primary);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    pointer-events: none;
+    font-weight: 500;
+}
+
+.social-icon:hover::before {
+    opacity: 1;
+    visibility: visible;
+    left: 70px;
+}
+
+/* Wersja dla mobile */
+@media (max-width: 768px) {
+    .social-floating {
+        left: 10px;
+        gap: 8px;
+    }
+    
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .social-icon::before {
+        display: none; /* Ukryj tooltipy na mobile */
+    }
+}
+
+/* Jeśli chcesz żeby była na górze a nie na środku */
+.social-floating.top {
+    top: 150px;
+    transform: none;
+}
+
+/* Jeśli chcesz żeby była na dole */
+.social-floating.bottom {
+    top: auto;
+    bottom: 30px;
+    transform: none;
+}
