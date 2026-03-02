@@ -354,13 +354,13 @@ body {
 .service-header h4 {
     font-size: 24px;
     font-weight: 700;
-    color: var(--dark);
+    color: white;
 }
 
 .service-header p {
     font-size: 14px;
     opacity: 0.7;
-    color: var(--text);
+    color: white;
 }
 
 .service-items {
@@ -977,13 +977,13 @@ body {
 .service-header h4 {
     font-size: 28px;
     font-weight: 700;
-    color: var(--light);
+    color: white;
     margin-bottom: 4px;
 }
 
 .service-header p {
     font-size: 16px;
-    color: var(--light);
+    color: white;
     opacity: 0.9;
 }
 
@@ -1131,12 +1131,12 @@ a {
 }
 
 .service-header h4 {
-    color: var(--light);
+    color: white;
     margin-bottom: 4px;
 }
 
 .service-header p {
-    color: var(--light);
+    color: white;
     opacity: 0.9;
     margin: 0;
 }

@@ -221,7 +221,7 @@ function renderServiceGroup(group) {
                 <div class="service-header-icon">
                     <i class="${group.icon}"></i>
                 </div>
-                <div>
+                <div id="service-header-text">
                     <h4>${group.cat}</h4>
                     <p>Specjalistyczne zabiegi i masaże</p>
                 </div>
