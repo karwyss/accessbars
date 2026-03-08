@@ -91,11 +91,10 @@ function renderSocialFloating() {   // do zmienienia sa te profile itd.
 }
 
 // Renderowanie całej aplikacji
-// Renderowanie całej aplikacji
 function renderApp() {
     const app = document.getElementById('app');
     app.innerHTML = `
-        <div class="min-h-screen" style="background-color: var(--light); position: relative;">
+        <div class="min-h-screen" style="background-color: var(--light);">
             ${renderTopBar()}
             ${renderNavigation()}
             ${renderHero()}
@@ -105,7 +104,6 @@ function renderApp() {
             ${renderFooter()}
             ${renderPopup()}
             ${renderSocialFloating()}
-            ${renderSalvia()} 
         </div>
     `;
 
@@ -113,32 +111,6 @@ function renderApp() {
     initEventListeners();
 }
 
-
-
-
-function renderSalvia() {
-    return `
-        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;">
-            <!-- 1. Lewy górny - wystający -->
-            <img src="./pictures/salvia-left.png" style="position: relative; left: -40px; top: 60px; width: 280px; opacity: 0.3; transform: rotate(-18deg);">
-            
-            <!-- 2. Prawy górny -->
-            <img src="./pictures/salvia-right.png" style="position: fixed; right: -30px; top: 120px; width: 240px; opacity: 0.32; transform: rotate(22deg);">
-            
-            <!-- 3. Lewa krawędź, 1/3 wysokości -->
-            <img src="./pictures/salvia-left.png" style="position: fixed; left: -20px; top: 35%; width: 200px; opacity: 0.32; transform: rotate(5deg);">
-            
-            <!-- 4. Prawa krawędź, 2/3 wysokości -->
-            <img src="./pictures/salvia-right.png" style="position: fixed; right: -25px; top: 65%; width: 210px; opacity: 0.3; transform: rotate(-12deg);">
-            
-            <!-- 5. Lewy dolny -->
-            <img src="./pictures/salvia-left.png" style="position: fixed; left: -15px; bottom: 40px; width: 230px; opacity: 0.32; transform: rotate(15deg);">
-            
-            <!-- 7. Środek ekranu, delikatny -->
-            <img src="./pictures/salvia-left.png" style="position: fixed; left: 10%; top: 50%; width: 160px; opacity: 0.28; transform: rotate(25deg);">
-        </div>
-    `;
-}
 
 
 // Renderowanie top bara
@@ -227,11 +199,11 @@ function renderHero() {
 // Renderowanie usług
 function renderServices() {
     return `
-
         <section id="uslugi" class="services">
             <div class="container">
                 <div class="section-title">
                     <h3>Nasze Usługi</h3>
+                    <p>Kompleksowa oferta zabiegów podologicznych i kosmetycznych</p>
                 </div>
                 
                 <div class="services-grid">
@@ -244,7 +216,7 @@ function renderServices() {
 
 function renderServiceGroup(group) {
     return `
-        <div class="service-card centered-card content">
+        <div class="service-card centered-card">
             <div class="service-header">
                 <div class="service-header-icon">
                     <i class="${group.icon}"></i>
@@ -463,7 +435,7 @@ function renderTimeSelect() {
                             <div style="font-weight: 500; color: var(--dark);">${appState.form.time}</div>
                         </div>
                     ` : `
-                        <span class="select-placeholder">Godzina... </span>
+                        <span class="select-placeholder">Wybierz godzinę...</span>
                     `}
                 </div>
                 <i class="fas fa-chevron-down chevron ${appState.isTimeOpen ? 'rotated' : ''}"></i>
@@ -628,11 +600,8 @@ function renderInfoSection() {
                 </div>
             </div>
         </section>
-
     `;
-} 
-
-
+}
 
 // Renderowanie footera
 // Renderowanie footera
